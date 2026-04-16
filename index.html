@@ -817,115 +817,193 @@
 
     <!-- PROJECT / SOLUTION -->
     <div id="pane-project" class="pane">
-      <div class="grid2" style="margin-bottom:0">
-        <div>
-          <!-- PROJECT CARD -->
-          <div class="card" style="margin-bottom:14px">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-              <div class="ps-icon ps-icon-proj" style="width:28px;height:28px;font-size:12px">P</div>
-              <div>
-                <div style="font-size:14px;font-weight:700;color:var(--text)">PRJ-2026-0041</div>
-                <div style="font-size:11px;color:var(--text-2)">Kirby Corp Network Refresh — multi-site</div>
-              </div>
-              <span class="status-badge sb-open" style="margin-left:auto">Active</span>
-            </div>
-            <div class="kv"><span class="kv-k">Project manager</span><span class="kv-v">Jack Lydon</span></div>
-            <div class="kv"><span class="kv-k">Sites in scope</span><span class="kv-v">3 (Staten Island, Brooklyn, Newark)</span></div>
-            <div class="kv"><span class="kv-k">Orders in project</span><span class="kv-v">4</span></div>
-            <div class="kv"><span class="kv-k">Overall progress</span><span class="kv-v">2 of 4 complete</span></div>
-            <div class="kv"><span class="kv-k">Project due</span><span class="kv-v">05-15-2026</span></div>
-          </div>
 
-          <!-- SOLUTION CARD -->
-          <div class="card">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-              <div class="ps-icon ps-icon-sol" style="width:28px;height:28px;font-size:12px">S</div>
-              <div>
-                <div style="font-size:14px;font-weight:700;color:var(--text)">SOL-45137-003</div>
-                <div style="font-size:11px;color:var(--text-2)">DIA + Static IP Bundle — Account 45137</div>
-              </div>
-            </div>
-            <div class="kv"><span class="kv-k">Orders in solution</span><span class="kv-v">374379 (current) · 374382</span></div>
-            <div class="kv"><span class="kv-k">Solution MRC</span><span class="kv-v">$558.00 + $210.00 = $768.00</span></div>
-            <div class="kv"><span class="kv-k">Synced tasks</span><span class="kv-v">Customer notified · Billing submitted</span></div>
-            <div style="margin-top:10px">
-              <div class="card-title">Synced task status</div>
-              <div class="sync-task-row">
-                <div class="str-icon"><svg width="8" height="8" viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <span class="str-name">Customer notified of install</span>
-                <div class="str-orders">
-                  <span class="str-order-chip">374379</span>
-                  <span class="str-order-chip">374382</span>
-                </div>
-              </div>
-              <div class="sync-task-row">
-                <div class="str-icon"><svg width="8" height="8" viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <span class="str-name">Billing submitted</span>
-                <div class="str-orders">
-                  <span class="str-order-chip">374379</span>
-                  <span class="str-order-chip">374382</span>
-                </div>
-              </div>
-            </div>
+      <!-- PROJECT HEADER -->
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+            <div class="ps-icon ps-icon-proj" style="width:24px;height:24px;font-size:11px">P</div>
+            <span style="font-size:15px;font-weight:700;color:var(--text)">PRJ-2026-0041 — Kirby Corp Network Refresh</span>
           </div>
+          <div style="font-size:11px;color:var(--text-2);margin-left:32px">Multi-site · 3 accounts · 4 orders · PM: Jack Lydon · Due 05-15-2026</div>
         </div>
+        <span class="status-badge sb-open">Active</span>
+      </div>
 
-        <div>
-          <!-- PROJECT ORDERS -->
-          <div class="card-title" style="margin-bottom:8px">All orders in project PRJ-2026-0041</div>
-          <div class="proj-orders-grid" style="grid-template-columns:1fr">
+      <!-- SUMMARY METRICS -->
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px">
+        <div style="background:var(--gray-50);border-radius:var(--radius);padding:12px">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600">Overall progress</div>
+          <div style="font-size:24px;font-weight:700;color:var(--text);margin-top:4px;line-height:1">62%</div>
+          <div style="font-size:11px;color:var(--text-3);margin-top:3px">across all orders</div>
+          <div style="height:4px;border-radius:2px;background:var(--border);margin-top:8px;overflow:hidden"><div style="height:100%;width:62%;border-radius:2px;background:#639922"></div></div>
+        </div>
+        <div style="background:var(--gray-50);border-radius:var(--radius);padding:12px">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600">Orders complete</div>
+          <div style="font-size:24px;font-weight:700;color:var(--text);margin-top:4px;line-height:1">2 / 4</div>
+          <div style="font-size:11px;color:var(--text-3);margin-top:3px">Brooklyn · Newark done</div>
+          <div style="height:4px;border-radius:2px;background:var(--border);margin-top:8px;overflow:hidden"><div style="height:100%;width:50%;border-radius:2px;background:#639922"></div></div>
+        </div>
+        <div style="background:var(--gray-50);border-radius:var(--radius);padding:12px">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600">Tasks complete</div>
+          <div style="font-size:24px;font-weight:700;color:var(--text);margin-top:4px;line-height:1">22 / 36</div>
+          <div style="font-size:11px;color:var(--text-3);margin-top:3px">9 pending · 5 ready</div>
+          <div style="height:4px;border-radius:2px;background:var(--border);margin-top:8px;overflow:hidden"><div style="height:100%;width:61%;border-radius:2px;background:#639922"></div></div>
+        </div>
+        <div style="background:var(--gray-50);border-radius:var(--radius);padding:12px">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600">Total MRC</div>
+          <div style="font-size:24px;font-weight:700;color:var(--text);margin-top:4px;line-height:1">$1,506</div>
+          <div style="font-size:11px;color:var(--text-3);margin-top:3px">$768 open · $738 closed</div>
+          <div style="height:4px;border-radius:2px;background:var(--border);margin-top:8px;overflow:hidden"><div style="height:100%;width:49%;border-radius:2px;background:#378ADD"></div></div>
+        </div>
+      </div>
 
-            <div class="proj-order-card">
-              <div class="poc-top">
-                <div>
-                  <div class="poc-order">326030</div>
-                  <div class="poc-site">Account 45200 · Brooklyn, NY</div>
-                </div>
-                <span class="poc-type ts-complete" style="background:var(--green-50);color:var(--green-600)">Closed</span>
-              </div>
-              <div class="poc-bar"><div class="poc-fill" style="width:100%"></div></div>
-              <div class="poc-stats"><span>ACCESS · Nitel</span><span>8/8 tasks done</span></div>
+      <!-- GATE LEGEND -->
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;padding:8px 12px;background:var(--gray-50);border-radius:var(--radius);align-items:center">
+        <span style="font-size:10px;font-weight:600;color:var(--text-2)">Gate key:</span>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2)"><div style="width:8px;height:8px;border-radius:2px;background:#97C459"></div> Complete</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2)"><div style="width:8px;height:8px;border-radius:2px;background:#378ADD"></div> Current gate</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2)"><div style="width:8px;height:8px;border-radius:2px;background:#EF9F27"></div> In progress / at risk</div>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2)"><div style="width:8px;height:8px;border-radius:2px;background:var(--gray-100)"></div> Pending</div>
+        <span style="margin-left:auto;font-size:10px;color:var(--text-3)">Click any row to expand gate detail</span>
+      </div>
+
+      <!-- ORDER TABLE -->
+      <div class="card" style="padding:0;overflow:hidden;margin-bottom:14px">
+        <table style="width:100%;border-collapse:collapse;table-layout:fixed">
+          <colgroup>
+            <col style="width:100px">
+            <col style="width:180px">
+            <col style="width:150px">
+            <col style="width:200px">
+            <col style="width:80px">
+            <col style="width:90px">
+            <col style="width:100px">
+            <col style="width:90px">
+          </colgroup>
+          <thead>
+            <tr style="background:var(--gray-50)">
+              <th style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600;padding:8px 10px;text-align:left;border-bottom:0.5px solid var(--border-md)">Order</th>
+              <th style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600;padding:8px 10px;text-align:left;border-bottom:0.5px solid var(--border-md)">Site</th>
+              <th style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600;padding:8px 10px;text-align:left;border-bottom:0.5px solid var(--border-md)">Current gate</th>
+              <th style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600;padding:8px 10px;text-align:left;border-bottom:0.5px solid var(--border-md)">Progress</th>
+              <th style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600;padding:8px 10px;text-align:left;border-bottom:0.5px solid var(--border-md)">Tasks</th>
+              <th style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600;padding:8px 10px;text-align:left;border-bottom:0.5px solid var(--border-md)">FIDs</th>
+              <th style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600;padding:8px 10px;text-align:left;border-bottom:0.5px solid var(--border-md)">Due</th>
+              <th style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);font-weight:600;padding:8px 10px;text-align:right;border-bottom:0.5px solid var(--border-md)">MRC</th>
+            </tr>
+          </thead>
+          <tbody id="proj-tbody">
+
+            <tr data-order="326030" onclick="selectProjOrder('326030',this)" style="cursor:pointer;border-bottom:0.5px solid var(--border)">
+              <td style="padding:10px 10px"><div style="font-size:13px;font-weight:600;color:var(--text)">326030</div><div style="font-size:10px;color:var(--text-3)">ACCESS</div></td>
+              <td style="padding:10px 10px;font-size:11px;color:var(--text-2)">Acct 45200 · Brooklyn, NY</td>
+              <td style="padding:10px 10px"><span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;background:var(--gray-50);color:var(--text-2);border:0.5px solid var(--border-md)"><span style="width:6px;height:6px;border-radius:50%;background:#888780;flex-shrink:0"></span>Closed</span></td>
+              <td style="padding:10px 10px">
+                <div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;border-radius:3px;background:var(--border);overflow:hidden"><div style="height:100%;width:100%;border-radius:3px;background:#639922"></div></div><span style="font-size:11px;font-weight:600;color:var(--text);min-width:28px;text-align:right">100%</span></div>
+                <div style="display:flex;gap:1px;margin-top:4px"><div style="height:3px;border-radius:2px 0 0 2px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;border-radius:0 2px 2px 0;background:#639922;flex:1"></div></div>
+              </td>
+              <td style="padding:10px 10px;font-size:11px;color:var(--text-2)">8 / 8</td>
+              <td style="padding:10px 10px"><span style="font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;background:#EAF3DE;color:#3B6D11">Complete</span></td>
+              <td style="padding:10px 10px;font-size:11px;color:var(--text-2)">04-24-2025</td>
+              <td style="padding:10px 10px;font-size:12px;font-weight:600;color:var(--text);text-align:right">$480.00</td>
+            </tr>
+
+            <tr data-order="341109" onclick="selectProjOrder('341109',this)" style="cursor:pointer;border-bottom:0.5px solid var(--border)">
+              <td style="padding:10px 10px"><div style="font-size:13px;font-weight:600;color:var(--text)">341109</div><div style="font-size:10px;color:var(--text-3)">ACCESS</div></td>
+              <td style="padding:10px 10px;font-size:11px;color:var(--text-2)">Acct 45305 · Newark, NJ</td>
+              <td style="padding:10px 10px"><span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;background:var(--gray-50);color:var(--text-2);border:0.5px solid var(--border-md)"><span style="width:6px;height:6px;border-radius:50%;background:#888780;flex-shrink:0"></span>Closed</span></td>
+              <td style="padding:10px 10px">
+                <div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;border-radius:3px;background:var(--border);overflow:hidden"><div style="height:100%;width:100%;border-radius:3px;background:#639922"></div></div><span style="font-size:11px;font-weight:600;color:var(--text);min-width:28px;text-align:right">100%</span></div>
+                <div style="display:flex;gap:1px;margin-top:4px"><div style="height:3px;border-radius:2px 0 0 2px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;border-radius:0 2px 2px 0;background:#639922;flex:1"></div></div>
+              </td>
+              <td style="padding:10px 10px;font-size:11px;color:var(--text-2)">8 / 8</td>
+              <td style="padding:10px 10px"><span style="font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;background:#EAF3DE;color:#3B6D11">Complete</span></td>
+              <td style="padding:10px 10px;font-size:11px;color:var(--text-2)">03-10-2026</td>
+              <td style="padding:10px 10px;font-size:12px;font-weight:600;color:var(--text);text-align:right">$258.00</td>
+            </tr>
+
+            <tr data-order="374379" onclick="selectProjOrder('374379',this)" style="cursor:pointer;background:#E6F1FB;border-bottom:0.5px solid var(--border)">
+              <td style="padding:10px 10px"><div style="font-size:13px;font-weight:600;color:#0C447C">374379 ★</div><div style="font-size:10px;color:#185FA5">ACCESS · current</div></td>
+              <td style="padding:10px 10px;font-size:11px;color:var(--text-2)">Acct 45137 · Staten Island, NY<br><span style="font-size:10px;color:#185FA5">SOL-45137-003</span></td>
+              <td style="padding:10px 10px"><span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;background:#E6F1FB;color:#0C447C;border:0.5px solid #B5D4F4"><span style="width:6px;height:6px;border-radius:50%;background:#185FA5;flex-shrink:0"></span>Circuit accept</span></td>
+              <td style="padding:10px 10px">
+                <div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;border-radius:3px;background:var(--border);overflow:hidden"><div style="height:100%;width:67%;border-radius:3px;background:#378ADD"></div></div><span style="font-size:11px;font-weight:600;color:#0C447C;min-width:28px;text-align:right">67%</span></div>
+                <div style="display:flex;gap:1px;margin-top:4px"><div style="height:3px;border-radius:2px 0 0 2px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;background:#378ADD;flex:1"></div><div style="height:3px;border-radius:0 2px 2px 0;background:var(--gray-100);flex:1"></div></div>
+              </td>
+              <td style="padding:10px 10px;font-size:11px;color:var(--text-2)">6 / 9<br><span style="color:#854F0B;font-weight:500">1 ready</span></td>
+              <td style="padding:10px 10px"><span style="font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;background:#FAEEDA;color:#854F0B">3 missing</span></td>
+              <td style="padding:10px 10px;font-size:11px;font-weight:600;color:#854F0B">05-01-2026<br>15 days</td>
+              <td style="padding:10px 10px;font-size:12px;font-weight:600;color:var(--text);text-align:right">$558.00</td>
+            </tr>
+
+            <tr data-order="374382" onclick="selectProjOrder('374382',this)" style="cursor:pointer;border-bottom:0.5px solid var(--border)">
+              <td style="padding:10px 10px"><div style="font-size:13px;font-weight:600;color:var(--text)">374382</div><div style="font-size:10px;color:var(--text-3)">VOICE</div></td>
+              <td style="padding:10px 10px;font-size:11px;color:var(--text-2)">Acct 45137 · Staten Island, NY<br><span style="font-size:10px;color:var(--text-3)">SOL-45137-003</span></td>
+              <td style="padding:10px 10px"><span style="display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;background:#FAEEDA;color:#854F0B;border:0.5px solid #FAC775"><span style="width:6px;height:6px;border-radius:50%;background:#EF9F27;flex-shrink:0"></span>Carrier order</span></td>
+              <td style="padding:10px 10px">
+                <div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:6px;border-radius:3px;background:var(--border);overflow:hidden"><div style="height:100%;width:33%;border-radius:3px;background:#EF9F27"></div></div><span style="font-size:11px;font-weight:600;color:var(--text);min-width:28px;text-align:right">33%</span></div>
+                <div style="display:flex;gap:1px;margin-top:4px"><div style="height:3px;border-radius:2px 0 0 2px;background:#639922;flex:1"></div><div style="height:3px;background:#639922;flex:1"></div><div style="height:3px;background:#EF9F27;flex:1"></div><div style="height:3px;background:var(--gray-100);flex:1"></div><div style="height:3px;background:var(--gray-100);flex:1"></div><div style="height:3px;border-radius:0 2px 2px 0;background:var(--gray-100);flex:1"></div></div>
+              </td>
+              <td style="padding:10px 10px;font-size:11px;color:var(--text-2)">3 / 9<br><span style="font-size:10px;color:var(--text-3)">waiting FOC</span></td>
+              <td style="padding:10px 10px"><span style="font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;background:#FAEEDA;color:#854F0B">5 missing</span></td>
+              <td style="padding:10px 10px;font-size:11px;font-weight:600;color:#854F0B">05-01-2026<br>15 days</td>
+              <td style="padding:10px 10px;font-size:12px;font-weight:600;color:var(--text);text-align:right">$210.00</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GATE DETAIL PANEL -->
+      <div id="proj-gate-detail" style="display:none;margin-bottom:14px">
+        <div class="card">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-3);font-weight:600;margin-bottom:8px" id="proj-gate-title">Gate breakdown</div>
+          <div style="display:flex;gap:3px" id="proj-gate-body"></div>
+        </div>
+      </div>
+
+      <!-- SOLUTION SECTION -->
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <div class="ps-icon ps-icon-sol" style="width:22px;height:22px;font-size:10px">S</div>
+          <span style="font-size:13px;font-weight:700;color:var(--text)">SOL-45137-003 — DIA + Static IP Bundle</span>
+        </div>
+        <div style="display:flex;gap:6px;margin-bottom:10px">
+          <span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;background:#E6F1FB;border:0.5px solid #85B7EB;color:#0C447C">374379 — ACCESS (current)</span>
+          <span style="padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;background:var(--gray-50);border:0.5px solid var(--border-md);color:var(--text-2)">374382 — VOICE</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <div class="kv"><span class="kv-k">Solution MRC</span><span class="kv-v">$768.00</span></div>
+            <div class="kv"><span class="kv-k">Combined progress</span><span class="kv-v">50% (9/18 tasks)</span></div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+              <div style="flex:1;height:6px;border-radius:3px;background:var(--border);overflow:hidden"><div style="height:100%;width:50%;border-radius:3px;background:#378ADD"></div></div>
+              <span style="font-size:11px;font-weight:600;color:var(--text)">50%</span>
             </div>
-
-            <div class="proj-order-card">
-              <div class="poc-top">
-                <div>
-                  <div class="poc-order">341109</div>
-                  <div class="poc-site">Account 45305 · Newark, NJ</div>
+          </div>
+          <div>
+            <div class="kv"><span class="kv-k">Synced tasks</span><span class="kv-v">2 shared across orders</span></div>
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:5px">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;border-radius:6px;background:#EEEDFE;font-size:11px">
+                <span style="color:#3C3489;font-weight:600">Customer notified</span>
+                <div style="display:flex;gap:4px">
+                  <span style="padding:1px 6px;border-radius:4px;font-size:10px;background:var(--surface);color:#534AB7;border:0.5px solid #CECBF6">374379 — pending</span>
+                  <span style="padding:1px 6px;border-radius:4px;font-size:10px;background:var(--surface);color:#534AB7;border:0.5px solid #CECBF6">374382 — pending</span>
                 </div>
-                <span class="poc-type ts-complete" style="background:var(--green-50);color:var(--green-600)">Closed</span>
               </div>
-              <div class="poc-bar"><div class="poc-fill" style="width:100%"></div></div>
-              <div class="poc-stats"><span>ACCESS · Nitel</span><span>8/8 tasks done</span></div>
-            </div>
-
-            <div class="proj-order-card current-order">
-              <div style="font-size:9px;font-weight:700;color:var(--blue-600);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Current order</div>
-              <div class="poc-top">
-                <div>
-                  <div class="poc-order">374379</div>
-                  <div class="poc-site">Account 45137 · Staten Island, NY</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;border-radius:6px;background:#EEEDFE;font-size:11px">
+                <span style="color:#3C3489;font-weight:600">Billing submitted</span>
+                <div style="display:flex;gap:4px">
+                  <span style="padding:1px 6px;border-radius:4px;font-size:10px;background:var(--surface);color:#534AB7;border:0.5px solid #CECBF6">374379 — pending</span>
+                  <span style="padding:1px 6px;border-radius:4px;font-size:10px;background:var(--surface);color:#534AB7;border:0.5px solid #CECBF6">374382 — pending</span>
                 </div>
-                <span class="poc-type ts-ready" style="background:var(--blue-50);color:var(--blue-600)">Open</span>
               </div>
-              <div class="poc-bar"><div class="poc-fill" style="width:65%"></div></div>
-              <div class="poc-stats"><span>ACCESS · Nitel · $558 MRC</span><span>6/9 tasks done · 3 FIDs missing</span></div>
-            </div>
-
-            <div class="proj-order-card">
-              <div class="poc-top">
-                <div>
-                  <div class="poc-order">374382</div>
-                  <div class="poc-site">Account 45137 · Staten Island, NY</div>
-                </div>
-                <span class="poc-type ts-pending" style="background:var(--amber-50);color:var(--amber-600)">Open</span>
-              </div>
-              <div class="poc-bar"><div class="poc-fill" style="width:40%"></div></div>
-              <div class="poc-stats"><span>VOICE · Nitel · $210 MRC</span><span>3/9 tasks done · In solution SOL-45137-003</span></div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- ACTIVITY LOG -->
@@ -1194,6 +1272,26 @@
     });
   }
 
+  var projGateData = {
+    '326030':{label:'Order 326030 — Brooklyn, NY — all gates complete',gates:[{n:'Approved',d:'04-14-2025',s:'done'},{n:'EKO',d:'04-15-2025',s:'done'},{n:'Carrier order',d:'04-16-2025',s:'done'},{n:'FOC received',d:'04-20-2025',s:'done'},{n:'Circuit accept',d:'04-23-2025',s:'done'},{n:'Billing',d:'04-24-2025',s:'done'}]},
+    '341109':{label:'Order 341109 — Newark, NJ — all gates complete',gates:[{n:'Approved',d:'01-08-2026',s:'done'},{n:'EKO',d:'01-12-2026',s:'done'},{n:'Carrier order',d:'01-15-2026',s:'done'},{n:'FOC received',d:'02-20-2026',s:'done'},{n:'Circuit accept',d:'03-05-2026',s:'done'},{n:'Billing',d:'03-10-2026',s:'done'}]},
+    '374379':{label:'Order 374379 — Staten Island, NY — at Circuit accept',gates:[{n:'Approved',d:'04-02-2026',s:'done'},{n:'EKO',d:'04-09-2026',s:'done'},{n:'Carrier order',d:'04-09-2026',s:'done'},{n:'FOC received',d:'04-15-2026',s:'done'},{n:'Circuit accept',d:'Ready now',s:'active'},{n:'Billing',d:'Pending',s:'pending'}]},
+    '374382':{label:'Order 374382 — Staten Island, NY — at Carrier order',gates:[{n:'Approved',d:'04-02-2026',s:'done'},{n:'EKO',d:'04-09-2026',s:'done'},{n:'Carrier order',d:'In progress',s:'active'},{n:'FOC received',d:'Pending',s:'pending'},{n:'Circuit accept',d:'Pending',s:'pending'},{n:'Billing',d:'Pending',s:'pending'}]}
+  };
+  function selectProjOrder(id,row){
+    var d=projGateData[id]; if(!d) return;
+    document.getElementById('proj-gate-title').textContent=d.label;
+    var html='';
+    d.gates.forEach(function(g){
+      var bg=g.s==='done'?'#EAF3DE':g.s==='active'?'#E6F1FB':'#F1EFE8';
+      var bc=g.s==='done'?'#C0DD97':g.s==='active'?'#B5D4F4':'#D3D1C7';
+      var nc=g.s==='done'?'#27500A':g.s==='active'?'#0C447C':'#5F5E5A';
+      var dc=g.s==='done'?'#3B6D11':g.s==='active'?'#185FA5':'#888780';
+      html+='<div style="flex:1;padding:8px 10px;border-radius:6px;border:0.5px solid '+bc+';background:'+bg+'"><div style="font-size:10px;font-weight:600;color:'+nc+';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+g.n+'</div><div style="font-size:9px;color:'+dc+';margin-top:2px">'+g.d+'</div></div>';
+    });
+    document.getElementById('proj-gate-body').innerHTML=html;
+    document.getElementById('proj-gate-detail').style.display='block';
+  }
   function showToast(msg) {
     var t = document.getElementById('toast');
     t.textContent = msg;
