@@ -475,37 +475,41 @@
       </div>
       <div class="callout co-purple" style="margin-bottom:12px">
         <span class="callout-icon">⬡</span>
-        <span>Tasks marked <strong>synced</strong> are shared across solution SOL-45137-003. Completing them here will mark them complete on all linked orders.</span>
+        <span>Tasks marked <strong>synced</strong> are shared across solution SOL-45137-003. Completing them here will mark them complete on all linked orders. Click any task row to open its completion screen.</span>
       </div>
-      <div class="card">
-        <div class="task-row">
-          <div class="check-btn done" onclick="toggleTask(this)"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="card" id="task-list">
+
+        <div class="task-row" data-task="order-approved" data-status="complete" onclick="openTaskModal('order-approved')">
+          <div class="check-btn done"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <span class="ts ts-complete">Complete</span>
           <div class="task-body">
             <div class="task-name">Order approved</div>
             <div class="task-desc">Verify all services and attributes. Key order in system, attach all documents and assign PM.</div>
-            <div class="task-meta"><span class="tm">Jack Lydon</span><span class="tm">04-02-2026</span></div>
+            <div class="task-meta"><span class="tm">Jack Lydon</span><span class="tm">04-02-2026</span><span class="tm" style="color:var(--blue-600)">View details →</span></div>
           </div>
         </div>
-        <div class="task-row">
+
+        <div class="task-row" data-task="eko" data-status="complete" onclick="openTaskModal('eko')">
           <div class="check-btn done"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <span class="ts ts-complete">Complete</span>
           <div class="task-body">
             <div class="task-name">EKO</div>
-            <div class="task-desc">PM sends welcome email to customer and agent with questionnaire, demarc location confirmation, and circuit billing rules.</div>
-            <div class="task-meta"><span class="tm">Jack Lydon</span><span class="tm">04-09-2026</span></div>
+            <div class="task-desc">PM sends welcome email to customer and agent with questionnaire, demarc confirmation, and circuit billing rules.</div>
+            <div class="task-meta"><span class="tm">Jack Lydon</span><span class="tm">04-09-2026</span><span class="tm" style="color:var(--blue-600)">View details →</span></div>
           </div>
         </div>
-        <div class="task-row">
+
+        <div class="task-row" data-task="questionnaire" data-status="complete" onclick="openTaskModal('questionnaire')">
           <div class="check-btn done"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <span class="ts ts-complete">Complete</span>
           <div class="task-body">
             <div class="task-name">Questionnaire</div>
             <div class="task-desc">PM confirms customer contact name and email. Selects correct contacts for email notifications.</div>
-            <div class="task-meta"><span class="tm">Jack Lydon</span><span class="tm">04-09-2026</span></div>
+            <div class="task-meta"><span class="tm">Jack Lydon</span><span class="tm">04-09-2026</span><span class="tm" style="color:var(--blue-600)">View details →</span></div>
           </div>
         </div>
-        <div class="task-row">
+
+        <div class="task-row" data-task="ca-assignment" data-status="complete" onclick="openTaskModal('ca-assignment')">
           <div class="check-btn done"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <span class="ts ts-complete">Complete</span>
           <div class="task-body">
@@ -514,35 +518,39 @@
             <div class="task-meta"><span class="tm">Maureen Walsh</span><span class="tm">04-09-2026</span></div>
           </div>
         </div>
-        <div class="task-row">
+
+        <div class="task-row" data-task="carrier-order" data-status="complete" onclick="openTaskModal('carrier-order')">
           <div class="check-btn done"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <span class="ts ts-complete">Complete</span>
           <div class="task-body">
             <div class="task-name">Carrier order</div>
             <div class="task-desc">Carrier access order submitted to Nitel.</div>
-            <div class="task-meta"><span class="tm">Maureen Walsh</span><span class="tm">04-09-2026</span></div>
+            <div class="task-meta"><span class="tm">Maureen Walsh</span><span class="tm">04-09-2026</span><span class="tm" style="color:var(--blue-600)">View details →</span></div>
           </div>
         </div>
-        <div class="task-row">
+
+        <div class="task-row" data-task="foc-received" data-status="complete" onclick="openTaskModal('foc-received')">
           <div class="check-btn done"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <span class="ts ts-complete">Complete</span>
           <div class="task-body">
             <div class="task-name">FOC received</div>
             <div class="task-desc">Firm Order Commitment received from Nitel. Carrier details posted to notes.</div>
-            <div class="task-meta"><span class="tm">Maureen Walsh</span><span class="tm">04-15-2026</span><span class="dep-chip">after: Carrier order</span></div>
+            <div class="task-meta"><span class="tm">Maureen Walsh</span><span class="tm">04-15-2026</span><span class="dep-chip">after: Carrier order</span><span class="tm" style="color:var(--blue-600)">View details →</span></div>
           </div>
         </div>
-        <div class="task-row">
-          <div class="check-btn" onclick="toggleTask(this)"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="task-row" data-task="circuit-accept" data-status="ready" onclick="openTaskModal('circuit-accept')" style="background:var(--blue-50);border-radius:var(--radius)">
+          <div class="check-btn"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <span class="ts ts-ready">Ready</span>
           <div class="task-body">
             <div class="task-name">Circuit accept</div>
-            <div class="task-desc">Carrier access confirms with access provider that installation was successful. Post completion notes and sign off, or document reason and follow up.</div>
-            <div class="task-meta"><span class="tm">Maureen Walsh</span><span class="dep-chip">after: FOC received</span></div>
+            <div class="task-desc">Confirm with access provider that installation was successful. Record outcome and post completion notes.</div>
+            <div class="task-meta"><span class="tm">Maureen Walsh</span><span class="dep-chip">after: FOC received</span><span style="font-size:10px;color:var(--blue-600);font-weight:600">Click to complete →</span></div>
           </div>
         </div>
-        <div class="task-row">
-          <div class="check-btn" onclick="triggerSyncModal(this)"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="task-row" data-task="customer-notified" data-status="pending" onclick="openTaskModal('customer-notified')">
+          <div class="check-btn"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <span class="ts ts-synced">Synced</span>
           <div class="task-body">
             <div class="task-name">Customer notified of install</div>
@@ -550,8 +558,9 @@
             <div class="task-meta"><span class="tm">Jack Lydon</span><span class="dep-chip">after: Circuit accept</span><span class="sync-chip" onclick="event.stopPropagation();showSyncDetail()">⬡ synced to 374382</span></div>
           </div>
         </div>
-        <div class="task-row">
-          <div class="check-btn" onclick="triggerSyncModal(this)"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <div class="task-row" data-task="billing" data-status="pending" onclick="openTaskModal('billing')">
+          <div class="check-btn"><svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <span class="ts ts-synced">Synced</span>
           <div class="task-body">
             <div class="task-name">Billing submitted</div>
@@ -559,7 +568,8 @@
             <div class="task-meta"><span class="tm">Jack Lydon</span><span class="sync-chip" onclick="event.stopPropagation();showSyncDetail()">⬡ synced to 374382</span></div>
           </div>
         </div>
-        <div class="task-row" style="opacity:0.6">
+
+        <div class="task-row" style="opacity:0.55">
           <div class="check-btn"></div>
           <span class="ts ts-hidden">Hidden</span>
           <div class="task-body">
@@ -568,6 +578,7 @@
             <div class="task-meta"><span class="tm" style="color:var(--text-3)">Not triggered</span></div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -1119,6 +1130,49 @@
   </div>
 </div>
 
+<!-- TASK COMPLETION MODAL -->
+<div class="modal-backdrop" id="taskModal">
+  <div class="modal" style="width:560px;max-height:90vh;overflow-y:auto">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:12px">
+      <div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-3);font-weight:600;margin-bottom:3px" id="tm-gate-label">Task</div>
+        <div class="modal-title" id="tm-title">Task name</div>
+        <div class="modal-sub" id="tm-desc">Task description</div>
+      </div>
+      <button class="btn btn-sm" onclick="closeTaskModal()" style="flex-shrink:0;margin-top:2px">✕ Close</button>
+    </div>
+
+    <!-- read-only completed view -->
+    <div id="tm-completed-view" style="display:none">
+      <div style="background:var(--green-50);border-radius:var(--radius);padding:10px 12px;font-size:12px;color:var(--green-600);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px">
+        <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" stroke="#3B6D11" stroke-width="1.2" fill="none"/><polyline points="4,7 6,9 10,5" stroke="#3B6D11" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Completed — <span id="tm-completed-by">Jack Lydon · 04-09-2026</span>
+      </div>
+      <div id="tm-completed-data"></div>
+    </div>
+
+    <!-- active input view -->
+    <div id="tm-input-view">
+      <div id="tm-fields"></div>
+      <div id="tm-sync-section" style="display:none;margin-top:12px;padding:12px;background:var(--purple-50);border-radius:var(--radius);border:0.5px solid #CECBF6">
+        <div style="font-size:11px;font-weight:600;color:var(--purple-800);margin-bottom:8px">⬡ Synced task — applies to multiple orders</div>
+        <label class="modal-order-row" style="background:var(--surface)">
+          <input type="checkbox" id="sync-374379" checked>
+          <div class="mor-info"><div class="mor-name">374379 — IP Circuit DIA renewal</div><div class="mor-sub">Account 45137 · Staten Island, NY · Current order</div></div>
+        </label>
+        <label class="modal-order-row" style="background:var(--surface);margin-top:4px">
+          <input type="checkbox" id="sync-374382" checked>
+          <div class="mor-info"><div class="mor-name">374382 — Voice service renewal</div><div class="mor-sub">Account 45137 · Staten Island, NY</div></div>
+        </label>
+      </div>
+      <div class="modal-footer" id="tm-footer">
+        <button class="btn" onclick="closeTaskModal()">Cancel</button>
+        <button class="btn btn-primary" id="tm-submit-btn" onclick="submitTask()">Mark complete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- SYNC MODAL -->
 <div class="modal-backdrop" id="syncModal">
   <div class="modal">
@@ -1153,7 +1207,279 @@
 <script>
   var activeFilter = 'all', activeSearch = '';
   var pendingCheckBtn = null;
+  var currentTaskId = null;
 
+  /* ── TASK DEFINITIONS ─────────────────────────────────────── */
+  var taskDefs = {
+    'order-approved': {
+      title: 'Order approved',
+      gate: 'Gate 1 of 6',
+      desc: 'Verify all services and attributes. Key order in CustomCall and OSS, attach all documents and assign PM.',
+      status: 'complete',
+      completedBy: 'Jack Lydon · 04-02-2026',
+      synced: false,
+      fields: [],
+      completedData: [
+        {label:'OSS order number', value:'145434'},
+        {label:'PM assigned', value:'Jack Lydon'},
+        {label:'Documents attached', value:'BD Addendum (374379-BD-2026-04-02)'},
+        {label:'Services verified', value:'IPCT2M046A · IPCAC2M · IPADRES2M · DATASU2M'},
+        {label:'Notes', value:'All services keyed and confirmed. Carrier quote RFQ# 7620035028 on file.'}
+      ]
+    },
+    'eko': {
+      title: 'EKO — welcome email',
+      gate: 'Gate 2 of 6',
+      desc: 'PM sends welcome email to customer and agent including questionnaire, demarc location confirmation, and circuit billing rules.',
+      status: 'complete',
+      completedBy: 'Jack Lydon · 04-09-2026',
+      synced: false,
+      fields: [],
+      completedData: [
+        {label:'Sent to customer', value:'Bryan Tebow (bryan.tebow@kirbycorp.com)'},
+        {label:'Sent to agent', value:'Sandler Partners'},
+        {label:'Questionnaire attached', value:'Yes — access questionnaire included'},
+        {label:'Demarc confirmed', value:'Yes'},
+        {label:'Billing rules included', value:'Yes'}
+      ]
+    },
+    'questionnaire': {
+      title: 'Questionnaire',
+      gate: 'Gate 2 of 6',
+      desc: 'PM confirms customer contact name and email for notifications. Selects correct contacts in OSS.',
+      status: 'complete',
+      completedBy: 'Jack Lydon · 04-09-2026',
+      synced: false,
+      fields: [],
+      completedData: [
+        {label:'Primary contact name', value:'Bryan Tebow'},
+        {label:'Primary contact email', value:'bryan.tebow@kirbycorp.com'},
+        {label:'Primary contact phone', value:'713-435-1092'},
+        {label:'Billing contact', value:'KirbyAp Corp (kirbyap@kirbycorp.com)'},
+        {label:'Contacts set in OSS', value:'Yes'}
+      ]
+    },
+    'ca-assignment': {
+      title: 'Carrier access assignment',
+      gate: 'Gate 2 of 6',
+      desc: 'Carrier access person is assigned to the order.',
+      status: 'complete',
+      completedBy: 'Maureen Walsh · 04-09-2026',
+      synced: false,
+      fields: [],
+      completedData: [
+        {label:'Assigned to', value:'Maureen Walsh'},
+        {label:'Assignment date', value:'04-09-2026'}
+      ]
+    },
+    'carrier-order': {
+      title: 'Carrier order',
+      gate: 'Gate 3 of 6',
+      desc: 'Carrier access order submitted to Nitel.',
+      status: 'complete',
+      completedBy: 'Maureen Walsh · 04-09-2026',
+      synced: false,
+      fields: [],
+      completedData: [
+        {label:'Carrier', value:'Nitel (NITL)'},
+        {label:'Carrier quote #', value:'RFQ# 7620035028'},
+        {label:'Order submitted date', value:'04-09-2026'},
+        {label:'Carrier confirmation', value:'Submitted via Nitel portal'},
+        {label:'Notes', value:'Renewal of existing circuit 45137NITLINT002 · 50M DIA · 5 static IPs'}
+      ]
+    },
+    'foc-received': {
+      title: 'FOC received',
+      gate: 'Gate 4 of 6',
+      desc: 'Firm Order Commitment received from Nitel. Carrier details copied from carrier GUI and posted to notes.',
+      status: 'complete',
+      completedBy: 'Maureen Walsh · 04-15-2026',
+      synced: false,
+      fields: [],
+      completedData: [
+        {label:'FOC date confirmed', value:'05-01-2026'},
+        {label:'FOC time', value:'10:00 AM'},
+        {label:'Carrier order ID', value:'NITL-2026-83921'},
+        {label:'LEC circuit ID', value:'45137NITLINT002'},
+        {label:'Notes posted', value:'Yes — FOC details posted to order notes 04-15-2026'}
+      ]
+    },
+    'circuit-accept': {
+      title: 'Circuit accept',
+      gate: 'Gate 5 of 6',
+      desc: 'Carrier access reaches out to access provider to confirm installation was successful. If yes, post completion notes and sign off. If no, document reason and follow up.',
+      status: 'ready',
+      completedBy: null,
+      synced: false,
+      submitLabel: 'Save and mark complete',
+      fields: [
+        {id:'ca-outcome', type:'radio', label:'Installation outcome', required:true, options:['Successful — circuit accepted','Not successful — follow-up required']},
+        {id:'ca-confirmed-by', type:'text', label:'Confirmed by (access provider contact)', required:true, placeholder:'Name and title at access provider'},
+        {id:'ca-confirm-date', type:'date', label:'Confirmation date', required:true, hint:'Date access provider confirmed successful install'},
+        {id:'ca-circuit-id', type:'text', label:'Circuit ID confirmed', required:false, placeholder:'e.g. 45137NITLINT002', hint:'Verify matches carrier FOC'},
+        {id:'ca-notes', type:'textarea', label:'Completion notes', required:true, placeholder:'Describe the confirmation call / outcome in detail. Include any issues noted.'}
+      ]
+    },
+    'customer-notified': {
+      title: 'Customer notified of install',
+      gate: 'Gate 5 of 6',
+      desc: 'PM reaches out to customer contact to confirm install date 5–7 days out. Confirm AM or PM window. Send TTU invitation. Populate contacts field.',
+      status: 'pending',
+      completedBy: null,
+      synced: true,
+      submitLabel: 'Save and mark complete on all selected orders',
+      fields: [
+        {id:'cn-contact', type:'text', label:'Contacted', required:true, placeholder:'e.g. Bryan Tebow', hint:'Prefilled from questionnaire'},
+        {id:'cn-date', type:'date', label:'Install date confirmed', required:true},
+        {id:'cn-window', type:'radio', label:'Install window', required:true, options:['AM (8am–12pm)','PM (12pm–5pm)','Full day']},
+        {id:'cn-ttu-sent', type:'radio', label:'TTU invitation sent', required:true, options:['Yes','No — scheduled separately']},
+        {id:'cn-notes', type:'textarea', label:'Notes', required:false, placeholder:'Any customer preferences, access requirements, or special instructions...'}
+      ]
+    },
+    'billing': {
+      title: 'Billing submitted',
+      gate: 'Gate 6 of 6',
+      desc: 'Send order to billing once renewal date is confirmed active. Verify renewal start date before submitting.',
+      status: 'pending',
+      completedBy: null,
+      synced: true,
+      submitLabel: 'Submit to billing on selected orders',
+      fields: [
+        {id:'bill-renewal-date', type:'date', label:'Renewal start date', required:true, hint:'Must match FOC date: 05-01-2026'},
+        {id:'bill-mrc', type:'text', label:'MRC to bill', required:true, placeholder:'e.g. $558.00', hint:'Verify against order: $558.00 MRC'},
+        {id:'bill-nrc', type:'text', label:'NRC to bill', required:true, placeholder:'e.g. $0.00', hint:'Verify against order: $0.00 NRC (waived)'},
+        {id:'bill-confirm', type:'radio', label:'All FIDs complete', required:true, options:['Yes — FIDs verified complete','No — FIDs still pending (do not submit)']},
+        {id:'bill-notes', type:'textarea', label:'Billing notes', required:false, placeholder:'Any special billing instructions...'}
+      ]
+    }
+  };
+
+  /* ── TASK MODAL ────────────────────────────────────────────── */
+  function openTaskModal(taskId) {
+    var def = taskDefs[taskId];
+    if (!def) return;
+    currentTaskId = taskId;
+
+    document.getElementById('tm-gate-label').textContent = def.gate || 'Task';
+    document.getElementById('tm-title').textContent = def.title;
+    document.getElementById('tm-desc').textContent = def.desc;
+
+    var completedView = document.getElementById('tm-completed-view');
+    var inputView = document.getElementById('tm-input-view');
+
+    if (def.status === 'complete') {
+      completedView.style.display = 'block';
+      inputView.style.display = 'none';
+      document.getElementById('tm-completed-by').textContent = def.completedBy || '';
+      var dataHtml = '';
+      (def.completedData || []).forEach(function(d) {
+        dataHtml += '<div style="display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:0.5px solid var(--border);gap:12px"><span style="font-size:11px;color:var(--text-2);min-width:160px">'+d.label+'</span><span style="font-size:12px;font-weight:500;color:var(--text);text-align:right">'+d.value+'</span></div>';
+      });
+      document.getElementById('tm-completed-data').innerHTML = dataHtml;
+    } else {
+      completedView.style.display = 'none';
+      inputView.style.display = 'block';
+      document.getElementById('tm-submit-btn').textContent = def.submitLabel || 'Mark complete';
+
+      var syncSection = document.getElementById('tm-sync-section');
+      syncSection.style.display = def.synced ? 'block' : 'none';
+
+      var fieldsHtml = '';
+      (def.fields || []).forEach(function(f) {
+        fieldsHtml += '<div style="margin-bottom:12px">';
+        fieldsHtml += '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;display:flex;align-items:center;gap:5px;margin-bottom:4px">';
+        if (f.required) fieldsHtml += '<span style="width:5px;height:5px;border-radius:50%;background:var(--red-400);flex-shrink:0;display:inline-block"></span>';
+        fieldsHtml += f.label+'</div>';
+
+        if (f.hint) fieldsHtml += '<div style="font-size:10px;color:var(--blue-600);margin-bottom:4px">'+f.hint+'</div>';
+
+        if (f.type === 'text') {
+          fieldsHtml += '<input type="text" id="'+f.id+'" class="fi" style="width:100%" placeholder="'+(f.placeholder||'')+'">';
+        } else if (f.type === 'date') {
+          fieldsHtml += '<input type="date" id="'+f.id+'" class="fi" style="width:220px">';
+        } else if (f.type === 'textarea') {
+          fieldsHtml += '<textarea id="'+f.id+'" class="fi" style="height:70px;width:100%;padding:7px 9px;resize:none" placeholder="'+(f.placeholder||'')+'"></textarea>';
+        } else if (f.type === 'radio') {
+          (f.options || []).forEach(function(opt, i) {
+            fieldsHtml += '<label style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--radius);border:0.5px solid var(--border-md);margin-bottom:4px;cursor:pointer;font-size:12px;color:var(--text)">';
+            fieldsHtml += '<input type="radio" name="'+f.id+'" value="'+opt+'" style="flex-shrink:0"> '+opt+'</label>';
+          });
+        }
+        fieldsHtml += '</div>';
+      });
+
+      if (def.fields && def.fields.length === 0) {
+        fieldsHtml = '<div style="background:var(--gray-50);border-radius:var(--radius);padding:12px;font-size:12px;color:var(--text-2)">No data entry required for this task. Click "Mark complete" to record completion.</div>';
+      }
+
+      document.getElementById('tm-fields').innerHTML = fieldsHtml;
+    }
+
+    document.getElementById('taskModal').classList.add('show');
+  }
+
+  function closeTaskModal() {
+    document.getElementById('taskModal').classList.remove('show');
+    currentTaskId = null;
+  }
+
+  function submitTask() {
+    var def = taskDefs[currentTaskId];
+    if (!def) return;
+
+    var requiredFields = (def.fields || []).filter(function(f){ return f.required; });
+    var missing = false;
+    requiredFields.forEach(function(f) {
+      if (f.type === 'radio') {
+        var checked = document.querySelector('input[name="'+f.id+'"]:checked');
+        if (!checked) missing = true;
+      } else {
+        var el = document.getElementById(f.id);
+        if (el && !el.value.trim()) { el.classList.add('missing'); missing = true; }
+      }
+    });
+
+    if (missing) { showToast('Please fill in all required fields.'); return; }
+
+    def.status = 'complete';
+    def.completedBy = 'You · ' + new Date().toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'});
+
+    var captured = [];
+    (def.fields || []).forEach(function(f) {
+      if (f.type === 'radio') {
+        var checked = document.querySelector('input[name="'+f.id+'"]:checked');
+        if (checked) captured.push({label: f.label, value: checked.value});
+      } else {
+        var el = document.getElementById(f.id);
+        if (el && el.value.trim()) captured.push({label: f.label, value: el.value.trim()});
+      }
+    });
+    def.completedData = captured;
+
+    var row = document.querySelector('[data-task="'+currentTaskId+'"]');
+    if (row) {
+      var btn = row.querySelector('.check-btn');
+      if (btn) btn.classList.add('done');
+      var badge = row.querySelector('.ts');
+      if (badge) { badge.textContent = 'Complete'; badge.className = 'ts ts-complete'; }
+      row.style.background = '';
+      var hint = row.querySelector('[style*="color:var(--blue-600);font-weight:600"]');
+      if (hint) hint.textContent = 'View details →';
+      var metaSpan = row.querySelector('.task-meta');
+      if (metaSpan) {
+        var dateSpan = document.createElement('span');
+        dateSpan.className = 'tm';
+        dateSpan.textContent = new Date().toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'});
+        metaSpan.insertBefore(dateSpan, metaSpan.children[1] || null);
+      }
+    }
+
+    var msg = def.synced ? 'Task saved and marked complete across solution orders.' : 'Task marked complete.';
+    closeTaskModal();
+    showToast(msg);
+  }
+
+  /* ── TAB NAV ────────────────────────────────────────────────── */
   function showTab(name, el) {
     document.querySelectorAll('.pane').forEach(function(p){ p.classList.remove('active'); });
     document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
@@ -1183,41 +1509,15 @@
     var missing = body ? body.querySelectorAll('.fi.missing').length : 0;
     var badge = document.getElementById('fbadge-' + section);
     if (badge) {
-      if (missing === 0) {
-        badge.textContent = 'Complete';
-        badge.className = 'fid-badge fb-ok';
-      } else {
-        badge.textContent = missing + ' missing';
-        badge.className = 'fid-badge fb-req';
-      }
+      if (missing === 0) { badge.textContent = 'Complete'; badge.className = 'fid-badge fb-ok'; }
+      else { badge.textContent = missing + ' missing'; badge.className = 'fid-badge fb-req'; }
     }
   }
 
   function saveFids() {
     var allMissing = document.querySelectorAll('.fi.missing');
-    if (allMissing.length > 0) {
-      showToast('Fill in all required fields before saving.');
-    } else {
-      showToast('FIDs saved successfully.');
-    }
-  }
-
-  function toggleTask(btn) {
-    btn.classList.toggle('done');
-    var row = btn.closest('.task-row');
-    if (row) {
-      var badge = row.querySelector('.ts');
-      if (badge) {
-        if (btn.classList.contains('done')) {
-          badge.textContent = 'Complete';
-          badge.className = 'ts ts-complete';
-        } else {
-          badge.textContent = 'Ready';
-          badge.className = 'ts ts-ready';
-        }
-      }
-    }
-    showToast(btn.classList.contains('done') ? 'Task marked complete.' : 'Task reopened.');
+    if (allMissing.length > 0) showToast('Fill in all required fields before saving.');
+    else showToast('FIDs saved successfully.');
   }
 
   function triggerSyncModal(btn) {
@@ -1237,16 +1537,13 @@
       if (row) {
         var badge = row.querySelector('.ts');
         if (badge) { badge.textContent = 'Complete'; badge.className = 'ts ts-complete'; }
-        var chips = row.querySelectorAll('.str-order-chip, [class*="str-order-chip"]');
       }
     }
     closeModal();
     showToast('Task marked complete and synced across solution orders.');
   }
 
-  function showSyncDetail() {
-    showTab('project');
-  }
+  function showSyncDetail() { showTab('project'); }
 
   function setFilter(f, el) {
     activeFilter = f;
@@ -1255,10 +1552,7 @@
     applyFilters();
   }
 
-  function doSearch(v) {
-    activeSearch = v.toLowerCase().trim();
-    applyFilters();
-  }
+  function doSearch(v) { activeSearch = v.toLowerCase().trim(); applyFilters(); }
 
   function applyFilters() {
     document.querySelectorAll('.tl-item').forEach(function(item) {
@@ -1278,6 +1572,7 @@
     '374379':{label:'Order 374379 — Staten Island, NY — at Circuit accept',gates:[{n:'Approved',d:'04-02-2026',s:'done'},{n:'EKO',d:'04-09-2026',s:'done'},{n:'Carrier order',d:'04-09-2026',s:'done'},{n:'FOC received',d:'04-15-2026',s:'done'},{n:'Circuit accept',d:'Ready now',s:'active'},{n:'Billing',d:'Pending',s:'pending'}]},
     '374382':{label:'Order 374382 — Staten Island, NY — at Carrier order',gates:[{n:'Approved',d:'04-02-2026',s:'done'},{n:'EKO',d:'04-09-2026',s:'done'},{n:'Carrier order',d:'In progress',s:'active'},{n:'FOC received',d:'Pending',s:'pending'},{n:'Circuit accept',d:'Pending',s:'pending'},{n:'Billing',d:'Pending',s:'pending'}]}
   };
+
   function selectProjOrder(id,row){
     var d=projGateData[id]; if(!d) return;
     document.getElementById('proj-gate-title').textContent=d.label;
@@ -1292,6 +1587,7 @@
     document.getElementById('proj-gate-body').innerHTML=html;
     document.getElementById('proj-gate-detail').style.display='block';
   }
+
   function showToast(msg) {
     var t = document.getElementById('toast');
     t.textContent = msg;
