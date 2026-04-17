@@ -569,7 +569,7 @@
           </div>
         </div>
 
-        <div class="task-row" style="opacity:0.55">
+        <div class="task-row" data-task="order-jeopardy" style="opacity:0.55">
           <div class="check-btn"></div>
           <span class="ts ts-hidden">Hidden</span>
           <div class="task-body">
@@ -1132,7 +1132,9 @@
 
 <!-- TASK COMPLETION MODAL -->
 <div class="modal-backdrop" id="taskModal">
-  <div class="modal" style="width:560px;max-height:90vh;overflow-y:auto">
+  <div class="modal" style="width:580px;max-height:92vh;overflow-y:auto">
+
+    <!-- Modal header — always visible -->
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:12px">
       <div>
         <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-3);font-weight:600;margin-bottom:3px" id="tm-gate-label">Task</div>
@@ -1142,16 +1144,153 @@
       <button class="btn btn-sm" onclick="closeTaskModal()" style="flex-shrink:0;margin-top:2px">✕ Close</button>
     </div>
 
-    <!-- read-only completed view -->
-    <div id="tm-completed-view" style="display:none">
-      <div style="background:var(--green-50);border-radius:var(--radius);padding:10px 12px;font-size:12px;color:var(--green-600);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px">
-        <svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" stroke="#3B6D11" stroke-width="1.2" fill="none"/><polyline points="4,7 6,9 10,5" stroke="#3B6D11" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Completed — <span id="tm-completed-by">Jack Lydon · 04-09-2026</span>
+    <!-- Step indicator — shown for circuit-accept only -->
+    <div id="tm-step-indicator" style="display:none;margin-bottom:14px">
+      <div style="display:flex;gap:6px;align-items:center">
+        <div id="si-1" style="padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:var(--blue-50);color:var(--blue-800);border:0.5px solid var(--blue-100)">1. Record outcome</div>
+        <div style="font-size:11px;color:var(--text-3)">→</div>
+        <div id="si-2" style="padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:var(--gray-50);color:var(--text-3);border:0.5px solid var(--border)">2. Details</div>
+        <div style="font-size:11px;color:var(--text-3)">→</div>
+        <div id="si-3" style="padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:var(--gray-50);color:var(--text-3);border:0.5px solid var(--border)">3. Outcome</div>
       </div>
+    </div>
+
+    <!-- VIEW: completed (read-only) -->
+    <div id="tm-completed-view" style="display:none">
+      <div id="tm-completed-banner" style="border-radius:var(--radius);padding:10px 12px;font-size:12px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px"></div>
       <div id="tm-completed-data"></div>
     </div>
 
-    <!-- active input view -->
+    <!-- VIEW: circuit-accept step 1 — outcome choice -->
+    <div id="tm-ca-step1" style="display:none">
+      <div style="margin-bottom:12px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;display:flex;align-items:center;gap:5px;margin-bottom:8px"><span style="width:5px;height:5px;border-radius:50%;background:var(--red-400);display:inline-block"></span>Installation outcome</div>
+        <label id="ca-opt-ok" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius);border:0.5px solid var(--border-md);margin-bottom:6px;cursor:pointer;font-size:13px;color:var(--text);transition:all 0.15s" onclick="selectCAOutcome('ok')">
+          <input type="radio" name="ca-outcome-radio" value="ok" style="flex-shrink:0">
+          <div>
+            <div style="font-weight:500">Successful — circuit accepted</div>
+            <div style="font-size:11px;color:var(--text-3);margin-top:2px">Installation confirmed working. Proceed to sign-off.</div>
+          </div>
+        </label>
+        <label id="ca-opt-fail" style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius);border:0.5px solid var(--border-md);margin-bottom:6px;cursor:pointer;font-size:13px;color:var(--text);transition:all 0.15s" onclick="selectCAOutcome('fail')">
+          <input type="radio" name="ca-outcome-radio" value="fail" style="flex-shrink:0">
+          <div>
+            <div style="font-weight:500">Not successful — follow-up required</div>
+            <div style="font-size:11px;color:var(--text-3);margin-top:2px">Installation failed or incomplete. Triggers jeopardy and blocks billing.</div>
+          </div>
+        </label>
+        <div id="ca-outcome-error" style="display:none;font-size:11px;color:var(--red-600);margin-top:4px">Please select an outcome before continuing.</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;padding-top:12px;border-top:0.5px solid var(--border)">
+        <button class="btn" onclick="closeTaskModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="caStep1Continue()">Continue →</button>
+      </div>
+    </div>
+
+    <!-- VIEW: circuit-accept step 2a — success fields -->
+    <div id="tm-ca-success" style="display:none">
+      <div style="background:var(--green-50);border-radius:var(--radius);padding:10px 12px;font-size:12px;color:var(--green-600);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px">
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#3B6D11" stroke-width="1.2"/><polyline points="4,7 6,9 10,5" stroke="#3B6D11" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Installation successful — complete the sign-off details below
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 16px">
+        <div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:var(--red-400);display:inline-block"></span>Confirmed by</div>
+          <input type="text" id="ca-s-contact" class="fi" style="width:100%" placeholder="Name, title at access provider">
+        </div>
+        <div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:var(--red-400);display:inline-block"></span>Confirmation date</div>
+          <input type="date" id="ca-s-date" class="fi" style="width:100%">
+        </div>
+        <div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;margin-bottom:4px">Circuit ID verified</div>
+          <input type="text" id="ca-s-circuit" class="fi" style="width:100%" placeholder="e.g. 45137NITLINT002">
+          <div style="font-size:10px;color:var(--blue-600);margin-top:3px">Should match FOC: 45137NITLINT002</div>
+        </div>
+        <div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;margin-bottom:4px">Speed test result</div>
+          <input type="text" id="ca-s-speed" class="fi" style="width:100%" placeholder="e.g. 49.8 Mbps down / 49.6 up">
+          <div style="font-size:10px;color:var(--blue-600);margin-top:3px">Provisioned: 50 Mbps DIA</div>
+        </div>
+        <div style="grid-column:1/-1">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:var(--red-400);display:inline-block"></span>Completion notes</div>
+          <textarea id="ca-s-notes" class="fi" style="height:70px;width:100%;padding:7px 9px;resize:none" placeholder="Describe the confirmation. Include anything observed at the demarc, any issues resolved, and who signed off."></textarea>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px;padding-top:12px;border-top:0.5px solid var(--border)">
+        <button class="btn" onclick="caGoStep(1)">← Back</button>
+        <button class="btn btn-primary" onclick="caSubmitSuccess()">Save and mark complete</button>
+      </div>
+    </div>
+
+    <!-- VIEW: circuit-accept step 2b — failure fields -->
+    <div id="tm-ca-failure" style="display:none">
+      <div style="background:var(--red-50);border-radius:var(--radius);padding:10px 12px;font-size:12px;color:var(--red-600);margin-bottom:14px;display:flex;gap:8px;align-items:flex-start;line-height:1.5">
+        <svg width="14" height="14" viewBox="0 0 14 14" style="flex-shrink:0;margin-top:1px" fill="none"><circle cx="7" cy="7" r="6" stroke="#A32D2D" stroke-width="1.2"/><line x1="7" y1="4" x2="7" y2="7.5" stroke="#A32D2D" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.8" fill="#A32D2D"/></svg>
+        <span>Document the failure carefully — this will trigger the jeopardy task, block billing, and be auto-posted to order notes so there's a permanent record.</span>
+      </div>
+      <div style="margin-bottom:12px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:var(--red-400);display:inline-block"></span>Failure reason</div>
+        <select id="ca-f-reason" class="fi">
+          <option value="">Select reason...</option>
+          <option>Circuit not provisioned at demarc</option>
+          <option>Wrong circuit ID / incorrect port</option>
+          <option>No signal / no connectivity</option>
+          <option>Speed test failed — below provisioned bandwidth</option>
+          <option>Physical damage to cable or demarc</option>
+          <option>Access provider unresponsive / no-show</option>
+          <option>Customer site not ready</option>
+          <option>Other — see description below</option>
+        </select>
+      </div>
+      <div style="margin-bottom:12px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:var(--red-400);display:inline-block"></span>Detailed description</div>
+        <textarea id="ca-f-desc" class="fi" style="height:80px;width:100%;padding:7px 9px;resize:none" placeholder="Describe exactly what happened. What was tested, what failed, any error codes or readings. The more detail the better for the follow-up."></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin-bottom:12px">
+        <div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:var(--red-400);display:inline-block"></span>Access provider contact</div>
+          <input type="text" id="ca-f-contact" class="fi" style="width:100%" placeholder="Name, phone / ticket #">
+        </div>
+        <div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:var(--red-400);display:inline-block"></span>Follow-up committed date</div>
+          <input type="date" id="ca-f-followup" class="fi" style="width:100%">
+          <div style="font-size:10px;color:var(--blue-600);margin-top:3px">Date provider committed to resolving</div>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;margin-bottom:6px">Escalation needed</div>
+        <label id="ca-jep-yes" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--radius);border:0.5px solid var(--border-md);margin-bottom:4px;cursor:pointer;font-size:12px" onclick="selectJep('yes')">
+          <input type="radio" name="ca-jep" value="yes" style="flex-shrink:0"> Yes — escalate to order jeopardy immediately
+        </label>
+        <label id="ca-jep-no" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--radius);border:0.5px solid var(--border-md);cursor:pointer;font-size:12px" onclick="selectJep('no')">
+          <input type="radio" name="ca-jep" value="no" style="flex-shrink:0"> No — follow-up in progress, monitor and retry
+        </label>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;padding-top:12px;border-top:0.5px solid var(--border)">
+        <button class="btn" onclick="caGoStep(1)">← Back</button>
+        <button class="btn" style="background:var(--red-600);color:#fff;border-color:var(--red-600)" onclick="caSubmitFailure()">Save failure and trigger follow-up</button>
+      </div>
+    </div>
+
+    <!-- VIEW: circuit-accept step 3 — failure result summary -->
+    <div id="tm-ca-result" style="display:none">
+      <div style="background:var(--red-50);border-radius:var(--radius);padding:12px;font-size:12px;color:var(--red-600);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#A32D2D" stroke-width="1.2"/><line x1="7" y1="4" x2="7" y2="7.5" stroke="#A32D2D" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.8" fill="#A32D2D"/></svg>
+        Circuit accept failed — order is now in jeopardy
+      </div>
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-3);margin-bottom:10px">What happened automatically</div>
+      <div id="ca-result-items" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"></div>
+      <div style="background:var(--amber-50);border-radius:var(--radius);padding:12px;border:0.5px solid var(--amber-100)">
+        <div style="font-size:11px;font-weight:600;color:var(--amber-600);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px">Next step — jeopardy task now active</div>
+        <div style="font-size:12px;color:var(--amber-800);line-height:1.6">Follow up with access provider by <strong id="ca-result-followup-date"></strong>. Once resolved, open the jeopardy task to re-attempt circuit accept. Billing is blocked until circuit accept passes.</div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:14px">
+        <button class="btn btn-primary" onclick="closeTaskModal()">Done</button>
+      </div>
+    </div>
+
+    <!-- VIEW: standard input (non-circuit-accept tasks) -->
     <div id="tm-input-view">
       <div id="tm-fields"></div>
       <div id="tm-sync-section" style="display:none;margin-top:12px;padding:12px;background:var(--purple-50);border-radius:var(--radius);border:0.5px solid #CECBF6">
@@ -1170,6 +1309,7 @@
         <button class="btn btn-primary" id="tm-submit-btn" onclick="submitTask()">Mark complete</button>
       </div>
     </div>
+
   </div>
 </div>
 
@@ -1307,18 +1447,12 @@
     'circuit-accept': {
       title: 'Circuit accept',
       gate: 'Gate 5 of 6',
-      desc: 'Carrier access reaches out to access provider to confirm installation was successful. If yes, post completion notes and sign off. If no, document reason and follow up.',
+      desc: 'Carrier access reaches out to access provider to confirm installation was successful. Record outcome — success routes to sign-off, failure triggers jeopardy.',
       status: 'ready',
       completedBy: null,
       synced: false,
-      submitLabel: 'Save and mark complete',
-      fields: [
-        {id:'ca-outcome', type:'radio', label:'Installation outcome', required:true, options:['Successful — circuit accepted','Not successful — follow-up required']},
-        {id:'ca-confirmed-by', type:'text', label:'Confirmed by (access provider contact)', required:true, placeholder:'Name and title at access provider'},
-        {id:'ca-confirm-date', type:'date', label:'Confirmation date', required:true, hint:'Date access provider confirmed successful install'},
-        {id:'ca-circuit-id', type:'text', label:'Circuit ID confirmed', required:false, placeholder:'e.g. 45137NITLINT002', hint:'Verify matches carrier FOC'},
-        {id:'ca-notes', type:'textarea', label:'Completion notes', required:true, placeholder:'Describe the confirmation call / outcome in detail. Include any issues noted.'}
-      ]
+      isCircuitAccept: true,
+      fields: []
     },
     'customer-notified': {
       title: 'Customer notified of install',
@@ -1355,44 +1489,223 @@
   };
 
   /* ── TASK MODAL ────────────────────────────────────────────── */
+  var caOutcome = null;
+
+  function caHideAllViews() {
+    ['tm-completed-view','tm-ca-step1','tm-ca-success','tm-ca-failure','tm-ca-result','tm-input-view'].forEach(function(id){
+      document.getElementById(id).style.display = 'none';
+    });
+  }
+
+  function caGoStep(n) {
+    var indicators = ['si-1','si-2','si-3'];
+    indicators.forEach(function(id, i) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (i + 1 < n) { el.style.background='var(--green-50)'; el.style.color='#3B6D11'; el.style.borderColor='#97C459'; }
+      else if (i + 1 === n) { el.style.background='var(--blue-50)'; el.style.color='#0C447C'; el.style.borderColor=var_blue_100(); }
+      else { el.style.background='var(--gray-50)'; el.style.color='var(--text-3)'; el.style.borderColor='var(--border)'; }
+    });
+    caHideAllViews();
+    if (n === 1) document.getElementById('tm-ca-step1').style.display = 'block';
+    else if (n === 2 && caOutcome === 'ok') document.getElementById('tm-ca-success').style.display = 'block';
+    else if (n === 2 && caOutcome === 'fail') document.getElementById('tm-ca-failure').style.display = 'block';
+    else if (n === 3) document.getElementById('tm-ca-result').style.display = 'block';
+  }
+
+  function var_blue_100() { return '#B5D4F4'; }
+
+  function selectCAOutcome(val) {
+    caOutcome = val;
+    var okEl = document.getElementById('ca-opt-ok');
+    var failEl = document.getElementById('ca-opt-fail');
+    if (val === 'ok') {
+      okEl.style.background = '#EAF3DE'; okEl.style.borderColor = '#97C459'; okEl.style.color = '#27500A';
+      failEl.style.background = ''; failEl.style.borderColor = ''; failEl.style.color = '';
+      okEl.querySelector('input').checked = true;
+    } else {
+      failEl.style.background = '#FCEBEB'; failEl.style.borderColor = '#F09595'; failEl.style.color = '#A32D2D';
+      okEl.style.background = ''; okEl.style.borderColor = ''; okEl.style.color = '';
+      failEl.querySelector('input').checked = true;
+    }
+    document.getElementById('ca-outcome-error').style.display = 'none';
+  }
+
+  function caStep1Continue() {
+    if (!caOutcome) { document.getElementById('ca-outcome-error').style.display = 'block'; return; }
+    caGoStep(2);
+  }
+
+  function selectJep(val) {
+    var yesEl = document.getElementById('ca-jep-yes');
+    var noEl = document.getElementById('ca-jep-no');
+    if (val === 'yes') {
+      yesEl.style.background = '#FCEBEB'; yesEl.style.borderColor = '#F09595';
+      noEl.style.background = ''; noEl.style.borderColor = '';
+      yesEl.querySelector('input').checked = true;
+    } else {
+      noEl.style.background = '#EAF3DE'; noEl.style.borderColor = '#97C459';
+      yesEl.style.background = ''; yesEl.style.borderColor = '';
+      noEl.querySelector('input').checked = true;
+    }
+  }
+
+  function caSubmitSuccess() {
+    var contact = document.getElementById('ca-s-contact').value.trim();
+    var date = document.getElementById('ca-s-date').value;
+    var notes = document.getElementById('ca-s-notes').value.trim();
+    if (!contact || !date || !notes) { showToast('Please fill in all required fields.'); return; }
+
+    var def = taskDefs['circuit-accept'];
+    def.status = 'complete';
+    def.completedBy = 'You · ' + new Date().toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'});
+    def.completedData = [
+      {label:'Outcome', value:'Successful — circuit accepted'},
+      {label:'Confirmed by', value:contact},
+      {label:'Confirmation date', value:date},
+      {label:'Circuit ID', value:document.getElementById('ca-s-circuit').value || '45137NITLINT002'},
+      {label:'Speed test', value:document.getElementById('ca-s-speed').value || 'Not recorded'},
+      {label:'Notes', value:notes}
+    ];
+    def.completedBanner = {type:'ok', text:'Completed — circuit accepted'};
+
+    var row = document.querySelector('[data-task="circuit-accept"]');
+    if (row) {
+      var btn = row.querySelector('.check-btn'); if (btn) btn.classList.add('done');
+      var badge = row.querySelector('.ts'); if (badge) { badge.textContent = 'Complete'; badge.className = 'ts ts-complete'; }
+      row.style.background = '';
+      var hint = row.querySelector('[style*="font-weight:600"]'); if (hint && hint.textContent.includes('Click')) hint.textContent = 'View details →';
+    }
+
+    var custRow = document.querySelector('[data-task="customer-notified"]');
+    if (custRow) { var cb = custRow.querySelector('.ts'); if (cb) { cb.textContent = 'Ready'; cb.className = 'ts ts-ready'; } }
+
+    closeTaskModal();
+    showToast('Circuit accepted — task complete. Customer notification task is now ready.');
+  }
+
+  function caSubmitFailure() {
+    var reason = document.getElementById('ca-f-reason').value;
+    var desc = document.getElementById('ca-f-desc').value.trim();
+    var contact = document.getElementById('ca-f-contact').value.trim();
+    var followup = document.getElementById('ca-f-followup').value;
+    if (!reason || !desc || !contact || !followup) { showToast('Please fill in all required fields.'); return; }
+
+    var jepChecked = document.querySelector('input[name="ca-jep"]:checked');
+    var escalate = jepChecked && jepChecked.value === 'yes';
+    var followupFormatted = new Date(followup + 'T00:00:00').toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'});
+
+    var def = taskDefs['circuit-accept'];
+    def.status = 'failed';
+    def.completedBy = 'You · ' + new Date().toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'});
+    def.completedData = [
+      {label:'Outcome', value:'FAILED — follow-up required'},
+      {label:'Failure reason', value:reason},
+      {label:'Description', value:desc},
+      {label:'Access provider contact', value:contact},
+      {label:'Follow-up committed', value:followupFormatted},
+      {label:'Escalated to jeopardy', value: escalate ? 'Yes' : 'No — monitoring'}
+    ];
+    def.completedBanner = {type:'fail', text:'Failed — jeopardy triggered · ' + 'You · ' + new Date().toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'})};
+
+    var row = document.querySelector('[data-task="circuit-accept"]');
+    if (row) {
+      var btn = row.querySelector('.check-btn'); if (btn) { btn.classList.remove('done'); btn.style.borderColor='#D85A30'; btn.style.background='#FCEBEB'; }
+      var badge = row.querySelector('.ts'); if (badge) { badge.textContent = 'Failed'; badge.className = 'ts'; badge.style.background='#FCEBEB'; badge.style.color='#A32D2D'; }
+      row.style.background = '';
+      var hint = row.querySelector('[style*="font-weight:600"]'); if (hint && hint.textContent.includes('Click')) hint.textContent = 'View details →';
+    }
+
+    var jepRow = document.querySelector('[data-task="order-jeopardy"]');
+    if (jepRow) {
+      jepRow.style.opacity = '1';
+      var jb = jepRow.querySelector('.ts'); if (jb) { jb.textContent = 'Jeopardy'; jb.style.background='#FCEBEB'; jb.style.color='#A32D2D'; jb.style.border='0.5px solid #F7C1C1'; }
+      var jname = jepRow.querySelector('.task-name'); if (jname) jname.textContent = 'Order jeopardy — circuit accept failure';
+      var jdesc = jepRow.querySelector('.task-desc'); if (jdesc) jdesc.textContent = 'Follow up with access provider by ' + followupFormatted + '. Reason: ' + reason + '. Contact: ' + contact + '. Once resolved, re-open circuit accept.';
+      jepRow.style.background = '#FFF8F8';
+    }
+
+    var billingRow = document.querySelector('[data-task="billing"]');
+    if (billingRow) {
+      var bb = billingRow.querySelector('.ts'); if (bb) { bb.textContent = 'Blocked'; bb.style.background='#FAEEDA'; bb.style.color='#854F0B'; bb.style.border='0.5px solid #FAC775'; }
+    }
+    var cnRow = document.querySelector('[data-task="customer-notified"]');
+    if (cnRow) {
+      var cnb = cnRow.querySelector('.ts'); if (cnb && cnb.textContent !== 'Complete') { cnb.textContent = 'Blocked'; cnb.style.background='#FAEEDA'; cnb.style.color='#854F0B'; cnb.style.border='0.5px solid #FAC775'; }
+    }
+
+    document.getElementById('ca-result-followup-date').textContent = followupFormatted;
+
+    var resultItems = [
+      {text: 'Circuit accept — recorded as <strong>Failed</strong>', sub: 'Status visible on task list and activity log. Task can be re-attempted once jeopardy is resolved.'},
+      {text: 'Order jeopardy task — <strong>activated</strong>', sub: 'Pre-populated with failure reason and follow-up date. Now visible in the task list.' + (escalate ? ' Escalation requested.' : '')},
+      {text: 'Billing gate — <strong>blocked</strong>', sub: 'Cannot proceed to billing until a new circuit accept attempt passes.'},
+      {text: 'Internal note — <strong>auto-posted</strong>', sub: 'Failure reason, contact, and follow-up date written to the Notes tab as a permanent record.'}
+    ];
+    var html = '';
+    resultItems.forEach(function(item) {
+      html += '<div style="display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:0.5px solid var(--border)">';
+      html += '<div style="width:18px;height:18px;border-radius:50%;background:var(--green-50);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#3B6D11" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+      html += '<div><div style="font-size:12px;font-weight:500;color:var(--text)">'+item.text+'</div><div style="font-size:11px;color:var(--text-2);margin-top:2px;line-height:1.4">'+item.sub+'</div></div>';
+      html += '</div>';
+    });
+    document.getElementById('ca-result-items').innerHTML = html;
+
+    caGoStep(3);
+  }
+
   function openTaskModal(taskId) {
     var def = taskDefs[taskId];
     if (!def) return;
     currentTaskId = taskId;
+    caOutcome = null;
 
     document.getElementById('tm-gate-label').textContent = def.gate || 'Task';
     document.getElementById('tm-title').textContent = def.title;
     document.getElementById('tm-desc').textContent = def.desc;
+    document.getElementById('tm-step-indicator').style.display = 'none';
+    caHideAllViews();
 
-    var completedView = document.getElementById('tm-completed-view');
-    var inputView = document.getElementById('tm-input-view');
-
-    if (def.status === 'complete') {
+    if (def.status === 'complete' || def.status === 'failed') {
+      var completedView = document.getElementById('tm-completed-view');
       completedView.style.display = 'block';
-      inputView.style.display = 'none';
-      document.getElementById('tm-completed-by').textContent = def.completedBy || '';
+
+      var banner = document.getElementById('tm-completed-banner');
+      if (def.status === 'failed') {
+        banner.style.background = '#FCEBEB'; banner.style.color = '#A32D2D';
+        banner.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#A32D2D" stroke-width="1.2"/><line x1="7" y1="4" x2="7" y2="7.5" stroke="#A32D2D" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="9.5" r="0.8" fill="#A32D2D"/></svg> Failed — ' + (def.completedBy || '');
+      } else {
+        banner.style.background = '#EAF3DE'; banner.style.color = '#3B6D11';
+        banner.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" stroke="#3B6D11" stroke-width="1.2" fill="none"/><polyline points="4,7 6,9 10,5" stroke="#3B6D11" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg> Completed — ' + (def.completedBy || '');
+      }
       var dataHtml = '';
       (def.completedData || []).forEach(function(d) {
-        dataHtml += '<div style="display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:0.5px solid var(--border);gap:12px"><span style="font-size:11px;color:var(--text-2);min-width:160px">'+d.label+'</span><span style="font-size:12px;font-weight:500;color:var(--text);text-align:right">'+d.value+'</span></div>';
+        var valColor = (d.label === 'Outcome' && d.value.includes('FAILED')) ? '#A32D2D' : 'var(--text)';
+        dataHtml += '<div style="display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:0.5px solid var(--border);gap:12px"><span style="font-size:11px;color:var(--text-2);min-width:160px">'+d.label+'</span><span style="font-size:12px;font-weight:500;color:'+valColor+';text-align:right">'+d.value+'</span></div>';
       });
       document.getElementById('tm-completed-data').innerHTML = dataHtml;
+
+    } else if (def.isCircuitAccept) {
+      document.getElementById('tm-step-indicator').style.display = 'block';
+      document.getElementById('ca-opt-ok').style.cssText = '';
+      document.getElementById('ca-opt-fail').style.cssText = '';
+      document.querySelectorAll('input[name="ca-outcome-radio"]').forEach(function(r){ r.checked = false; });
+      document.getElementById('ca-outcome-error').style.display = 'none';
+      caGoStep(1);
+
     } else {
-      completedView.style.display = 'none';
+      var inputView = document.getElementById('tm-input-view');
       inputView.style.display = 'block';
       document.getElementById('tm-submit-btn').textContent = def.submitLabel || 'Mark complete';
-
-      var syncSection = document.getElementById('tm-sync-section');
-      syncSection.style.display = def.synced ? 'block' : 'none';
+      document.getElementById('tm-sync-section').style.display = def.synced ? 'block' : 'none';
 
       var fieldsHtml = '';
       (def.fields || []).forEach(function(f) {
         fieldsHtml += '<div style="margin-bottom:12px">';
         fieldsHtml += '<div style="font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-2);font-weight:700;display:flex;align-items:center;gap:5px;margin-bottom:4px">';
         if (f.required) fieldsHtml += '<span style="width:5px;height:5px;border-radius:50%;background:var(--red-400);flex-shrink:0;display:inline-block"></span>';
-        fieldsHtml += f.label+'</div>';
-
+        fieldsHtml += f.label + '</div>';
         if (f.hint) fieldsHtml += '<div style="font-size:10px;color:var(--blue-600);margin-bottom:4px">'+f.hint+'</div>';
-
         if (f.type === 'text') {
           fieldsHtml += '<input type="text" id="'+f.id+'" class="fi" style="width:100%" placeholder="'+(f.placeholder||'')+'">';
         } else if (f.type === 'date') {
@@ -1400,18 +1713,15 @@
         } else if (f.type === 'textarea') {
           fieldsHtml += '<textarea id="'+f.id+'" class="fi" style="height:70px;width:100%;padding:7px 9px;resize:none" placeholder="'+(f.placeholder||'')+'"></textarea>';
         } else if (f.type === 'radio') {
-          (f.options || []).forEach(function(opt, i) {
-            fieldsHtml += '<label style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--radius);border:0.5px solid var(--border-md);margin-bottom:4px;cursor:pointer;font-size:12px;color:var(--text)">';
-            fieldsHtml += '<input type="radio" name="'+f.id+'" value="'+opt+'" style="flex-shrink:0"> '+opt+'</label>';
+          (f.options || []).forEach(function(opt) {
+            fieldsHtml += '<label style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--radius);border:0.5px solid var(--border-md);margin-bottom:4px;cursor:pointer;font-size:12px;color:var(--text)"><input type="radio" name="'+f.id+'" value="'+opt+'" style="flex-shrink:0"> '+opt+'</label>';
           });
         }
         fieldsHtml += '</div>';
       });
-
-      if (def.fields && def.fields.length === 0) {
+      if (!def.fields || def.fields.length === 0) {
         fieldsHtml = '<div style="background:var(--gray-50);border-radius:var(--radius);padding:12px;font-size:12px;color:var(--text-2)">No data entry required for this task. Click "Mark complete" to record completion.</div>';
       }
-
       document.getElementById('tm-fields').innerHTML = fieldsHtml;
     }
 
@@ -1421,62 +1731,38 @@
   function closeTaskModal() {
     document.getElementById('taskModal').classList.remove('show');
     currentTaskId = null;
+    caOutcome = null;
   }
 
   function submitTask() {
     var def = taskDefs[currentTaskId];
     if (!def) return;
-
     var requiredFields = (def.fields || []).filter(function(f){ return f.required; });
     var missing = false;
     requiredFields.forEach(function(f) {
-      if (f.type === 'radio') {
-        var checked = document.querySelector('input[name="'+f.id+'"]:checked');
-        if (!checked) missing = true;
-      } else {
-        var el = document.getElementById(f.id);
-        if (el && !el.value.trim()) { el.classList.add('missing'); missing = true; }
-      }
+      if (f.type === 'radio') { if (!document.querySelector('input[name="'+f.id+'"]:checked')) missing = true; }
+      else { var el = document.getElementById(f.id); if (el && !el.value.trim()) { el.classList.add('missing'); missing = true; } }
     });
-
     if (missing) { showToast('Please fill in all required fields.'); return; }
 
     def.status = 'complete';
     def.completedBy = 'You · ' + new Date().toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'});
-
     var captured = [];
     (def.fields || []).forEach(function(f) {
-      if (f.type === 'radio') {
-        var checked = document.querySelector('input[name="'+f.id+'"]:checked');
-        if (checked) captured.push({label: f.label, value: checked.value});
-      } else {
-        var el = document.getElementById(f.id);
-        if (el && el.value.trim()) captured.push({label: f.label, value: el.value.trim()});
-      }
+      if (f.type === 'radio') { var c = document.querySelector('input[name="'+f.id+'"]:checked'); if (c) captured.push({label:f.label, value:c.value}); }
+      else { var el = document.getElementById(f.id); if (el && el.value.trim()) captured.push({label:f.label, value:el.value.trim()}); }
     });
     def.completedData = captured;
 
     var row = document.querySelector('[data-task="'+currentTaskId+'"]');
     if (row) {
-      var btn = row.querySelector('.check-btn');
-      if (btn) btn.classList.add('done');
-      var badge = row.querySelector('.ts');
-      if (badge) { badge.textContent = 'Complete'; badge.className = 'ts ts-complete'; }
+      var btn = row.querySelector('.check-btn'); if (btn) btn.classList.add('done');
+      var badge = row.querySelector('.ts'); if (badge) { badge.textContent = 'Complete'; badge.className = 'ts ts-complete'; }
       row.style.background = '';
-      var hint = row.querySelector('[style*="color:var(--blue-600);font-weight:600"]');
-      if (hint) hint.textContent = 'View details →';
-      var metaSpan = row.querySelector('.task-meta');
-      if (metaSpan) {
-        var dateSpan = document.createElement('span');
-        dateSpan.className = 'tm';
-        dateSpan.textContent = new Date().toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'numeric'});
-        metaSpan.insertBefore(dateSpan, metaSpan.children[1] || null);
-      }
+      var hint = row.querySelector('[style*="font-weight:600"]'); if (hint && hint.textContent.includes('Click')) hint.textContent = 'View details →';
     }
-
-    var msg = def.synced ? 'Task saved and marked complete across solution orders.' : 'Task marked complete.';
     closeTaskModal();
-    showToast(msg);
+    showToast(def.synced ? 'Task saved and marked complete across solution orders.' : 'Task marked complete.');
   }
 
   /* ── TAB NAV ────────────────────────────────────────────────── */
